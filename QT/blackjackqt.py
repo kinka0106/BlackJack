@@ -4,7 +4,6 @@ import random
 from random import shuffle
 from itertools import product
 from PyQt5 import uic
-# from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow, QWidget, QStackedWidget
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QLabel
@@ -100,7 +99,7 @@ class GameScreen(QWidget):
 
         self.dealer_cards_all = []
         self.sum_dealerhand = 0
-        self.sum_dealerhand= self.draw_card(self.carddeck, self.dealer_cards_all)  # dodanie karty do listy i dodanie int reurnowanego do zmiennej 
+        self.sum_dealerhand= self.draw_card(self.carddeck, self.dealer_cards_all)
         self.update_dealer_card_gui()
         self.sum_dealerhand += self.draw_card(self.carddeck, self.dealer_cards_all)
       
@@ -113,7 +112,7 @@ class GameScreen(QWidget):
         
     
     def draw_card(self,carddeck,hand):
-        randomcard = random.choice(carddeck)   # losuj
+        randomcard = random.choice(carddeck)
         hand.append(randomcard)  
         carddeck.remove(randomcard)
         
@@ -168,7 +167,7 @@ class GameScreen(QWidget):
             elif self.sum_playerhand == self.sum_dealerhand:
                 self.comment.setText('Draw')
                 
-        else:  # tutaj juz mam więcej niz dealer 
+        else:
             if self.sum_playerhand == 21:
                 self.comment.setText('Blackjack! You win! :D')
             else:
@@ -198,6 +197,5 @@ class BlackJackWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
     window = BlackJackWindow()
-    # widget.resize(800, 600)
     window.show()
     sys.exit(app.exec_())
