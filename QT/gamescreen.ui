@@ -1073,6 +1073,9 @@ QPushButton:pressed {
          <property name="text">
           <string/>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
       </layout>
@@ -1332,6 +1335,9 @@ QPushButton:pressed {
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
