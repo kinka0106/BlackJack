@@ -6,6 +6,8 @@ import random
 from itertools import product 
 from random import shuffle
 from kivymd.app import MDApp
+from kivymd.uix.label import MDLabel
+
 
 def strtoint(value):
     if value == 'Jack':
@@ -23,7 +25,7 @@ def strtoint(value):
 
 value = ['2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace']
 color = ['trefl','karo','kier','pik']
-deck = list(product(value,color)) # lista krotek 52
+deck = list(product(value,color)) #lista krotek 52
 carddeck = deck
 shuffle(carddeck)
 
@@ -54,7 +56,7 @@ class GameScreen(Screen):
 
         self.dealer_cards_all = []
         self.sum_dealerhand = 0
-        self.sum_dealerhand= self.draw_card(self.carddeck, self.dealer_cards_all)  # dodanie karty do listy i dodanie int reurnowanego do zmiennej 
+        self.sum_dealerhand= self.draw_card(self.carddeck, self.dealer_cards_all)
         self.update_dealer_card_gui()
         self.sum_dealerhand += self.draw_card(self.carddeck, self.dealer_cards_all)
       
@@ -67,7 +69,7 @@ class GameScreen(Screen):
         
     
     def draw_card(self,carddeck,hand):
-        randomcard = random.choice(carddeck)   # losuj
+        randomcard = random.choice(carddeck)
         hand.append(randomcard)  
         carddeck.remove(randomcard)
         
@@ -114,7 +116,7 @@ class GameScreen(Screen):
                 self.ids.comment.text = 'Blackjack! You win! :D'
             else:
                 self.ids.comment.text = 'Dealer bust! You win!'
-        #stop
+  
         elif self.sum_playerhand <= self.sum_dealerhand:
             if self.sum_playerhand < self.sum_dealerhand:
                 self.ids.comment.text = 'Dealer wins, you lose!'
@@ -122,7 +124,7 @@ class GameScreen(Screen):
             elif self.sum_playerhand == self.sum_dealerhand:
                 self.ids.comment.text = 'Draw'
                 
-        else:  # tutaj juz mam więcej niz dealer 
+        else:
             if self.sum_playerhand == 21:
                 self.ids.comment.text = 'Blackjack! You win! :D'
             else:
