@@ -1,0 +1,219 @@
+#:kivy 2.1.0
+
+<StartBlackJackScreen>:
+    name: 'startscreen'
+    MDBoxLayout:
+        md_bg_color: 0, 0.176, 0.114, 1
+        orientation: 'vertical'
+        spacing: "10dp"
+        padding: "10dp"
+
+        MDFloatLayout:
+            AsyncImage:
+                source:'—Pngtree—vector flying poker_1447031.png'
+                size_hint: 1, .7      # szerokość = 100%, wysokość = 70%
+                pos_hint: {"x": 0, "y": 0} 
+                
+            AsyncImage:
+                source: '/home/karina/BlackJack/headline_startscreen2.png'
+                size_hint: None, None
+                size: dp(700), dp(350)
+                pos_hint: {"center_x": .5, "top": 1}
+
+                size_hint: 1, .7      # szerokość = 100%, wysokość = 60%
+                pos_hint: {"x": 0, "y": 0.5}
+    
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                spacing: "10dp"
+                padding: "10dp"
+                size_hint: 1, .73
+                
+                MDRoundFlatIconButton:
+                    text: 'Play'
+                    font_size: "23sp"   
+                    pos_hint: {"center_x": .5}  #centruje sie
+
+                    icon: "play"
+                    style: "elevated"
+            
+                    md_bg_color: 0.918, 0.675, 0.161, 0.8
+                    icon_color: 0.0, 0.031, 0.02, 1
+                    line_color: 0.918, 0.675, 0.161, 0.8
+                    theme_text_color: "Custom"
+                    text_color: 0.0, 0.031, 0.02, 1
+
+                    on_press: root.manager.transition.direction = 'up'
+                    on_press: root.manager.current = 'game'
+
+                Widget:
+                    size_hint_y: 0.5
+    
+                MDIconButton:
+                    #text: 'Read the games rules '
+                    font_size: "23sp"   
+                    icon: "clipboard-text"
+
+                    md_bg_color: 0.918, 0.675, 0.161, 0.8
+                    icon_color: 0.0, 0.031, 0.02, 1
+                    line_color: 0.918, 0.675, 0.161, 0.8
+                    theme_text_color: "Custom"
+                    text_color: 0.0, 0.031, 0.02, 1
+                    
+                    pos_hint: {"x": 0, "y": 0}
+                    on_press: root.manager.transition.direction = 'down'
+                    on_press: root.manager.current = 'rules'
+        
+<GameScreen>:
+    name: 'game'
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0, 0.176, 0.114, 1
+        spacing: "10dp"
+        padding: "10dp"
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            padding: "15dp"
+
+            MDIconButton:
+                icon:"home"#on tez ma restartowac 
+                md_bg_color: 0.918, 0.675, 0.161, 0.8
+                icon_color: 0.0, 0.031, 0.02, 1
+                line_color: 0.918, 0.675, 0.161, 0.8
+                theme_text_color: "Custom"
+                text_color: 0.0, 0.031, 0.02, 1
+                on_press: root.manager.transition.direction = 'down'
+                on_press: root.reload()
+                on_press: root.manager.current = 'startscreen'
+                
+            Widget:#space
+
+            MDIconButton:
+                icon:"reload"#tylko restart
+                md_bg_color: 0.918, 0.675, 0.161, 0.8
+                icon_color: 0.0, 0.031, 0.02, 1
+                line_color: 0.918, 0.675, 0.161, 0.8
+                theme_text_color: "Custom"
+                text_color: 0.0, 0.031, 0.02, 1
+                on_release: root.reload()
+
+        # Sekcja gracza
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: 120
+            Label:
+                text: "Player's card"
+                bold: 'True'
+                font_size: 39
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1  # biały
+            BoxLayout:
+                spacing: 10
+                Label:
+                    id: players_cards
+                    font_size: 20
+                    text: "Player: [    ]"
+                Label:
+                    id: sum_player
+                    font_size: 20
+                    text: "  "
+
+        Widget:
+            size_hint_y: 0.5
+        # Sekcja rozdającego
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: 120
+            Label:
+                text: "Dealer's card"
+                bold: 'True'
+                font_size: 39
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1  # biały
+            BoxLayout:
+                spacing: 10
+                padding: '10dp'
+                Label:
+                    id: dealers_cards
+                    font_size: 20
+                    text: "Dealer: [   ]"
+                Label:
+                    id: sum_dealer 
+                    font_size: 20
+                    text: ""
+
+        # Komentarz / status gry
+        Label:
+            id: comment
+            bold: 'True'
+            text: " "
+            font_size: 45
+            color: 0.949, 0.914, 0.392
+            size_hint_y: None
+            height: 60
+
+        
+        MDAnchorLayout:
+            anchor_x: "center"  # wycentrowanie poziome
+            anchor_y: "center"  # wycentrowanie pionowe
+            padding: dp(40)    #odstep od dołu 
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                height: 80
+                spacing: dp(20)
+                size_hint_x: None
+                width: self.minimum_width
+
+                MDRoundFlatButton:
+                    id: hit_button
+                    text: "Hit"
+                    font_size: "22sp"
+                    md_bg_color: 1, 1, 1, 1     #kolor tła przyciksu 
+                    theme_text_color: "Custom"
+                    text_color: "black"  #kolor tekstu
+                    on_press: root.hit()
+
+                MDRoundFlatButton:
+                    id: pass_button
+                    text: "Stand"
+                    font_size: "22sp"
+                    md_bg_color: 1, 1, 1, 1
+                    theme_text_color: "Custom"
+                    text_color: "black"
+                    on_press: root.pass_turn()
+    
+
+<RulesScreen>:
+    name: 'rules'
+    MDBoxLayout:
+        md_bg_color: 0, 0.176, 0.114, 1
+        orientation: 'vertical'
+        spacing: "10dp"
+        padding: "10dp"
+        MDAnchorLayout:
+            anchor_x: "center"  # wycentrowanie poziome
+            anchor_y: "center"  # wycentrowanie pionowe
+            MDLabel:
+                text: 'BlackJack Rules \n\n\n The goal is to get closer to 21 than the dealer, without going over.\n\n\n  Number cards = their value. \n • Face cards (Jack, Queen, King) = 10 \n • Ace = 1 or 11 \n \n Player can: \n • Hit ----> take another card. \n • Stand ----> keep the current hand \n \n Dealer must draw until reaching at least 17 \n \n If your total is over 21, you bust and lose \n \n \n BLACKJACK = Ace + 10 - value card in the first two card ----> best hand \n \n Good luck!'
+                bold: 'True'
+                font_size: 18
+                halign: "center"
+                valign: "top"
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1  # biały
+        MDIconButton:
+            icon: 'home'
+            md_bg_color: 1, 1, 1, 1
+            theme_text_color: "Custom"
+            text_color: "black"
+            on_press: root.manager.transition.direction = 'up'
+            on_press: root.manager.current = 'startscreen' 
+
+            
